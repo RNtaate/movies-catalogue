@@ -25,10 +25,12 @@ let App = (props) => {
   let getBulkMoviesList = () => {
 
     let numberOfPages = 0;
+    let moviesArray = [];
 
     fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres)
     .then((result) => {
-      props.getMyMoviesList(result);
+      moviesArray = moviesArray.concat(result.results);
+      props.getMyMoviesList(moviesArray);
       numberOfPages = result.total_pages;
       setMoviesLoaded(true);
 
@@ -37,7 +39,8 @@ let App = (props) => {
           if(i <= numberOfPages) {
             fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres, i)
             .then((result) => {
-              props.getMyMoviesList(result);
+              moviesArray = moviesArray.concat(result.results);
+              props.getMyMoviesList(moviesArray);
             }).catch((e) => {
               console.log('Something went horribly wrong!!!')
             })
@@ -50,6 +53,14 @@ let App = (props) => {
     })
   }
 
+  let handleYearSelection = (yearValue) => {
+    setLocalListFilters({ ...localListFilters, year: yearValue});
+  }
+
+  let handleGenresSelection = (genreValue) => {
+    setLocalListFilters({ ...localListFilters, genres: genreValue});
+  }
+
   useEffect(() => {
     fetchGenreList(API_KEY).then((result) => {
       props.getMyGenresList(result);
@@ -58,13 +69,14 @@ let App = (props) => {
       console.log('Something went horribly wrong and I some how');
     })
 
-    getBulkMoviesList();
+    // getBulkMoviesList();
   }, [])
 
   return (
     <div className="App">
-      <YearSelect />
-      {genresLoaded ? <GenreSelect /> : <p>No Genres Yet</p>}
+      <YearSelect handleYearSelection={handleYearSelection}/>
+      {genresLoaded ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
+      <button onClick={getBulkMoviesList}>Submit Filter</button>
       <div>
         {moviesLoaded ? moviesObject.movies.map((movie) => <MovieCard movie={movie} genresObject={genresObject}/>) : <p>No movies Yet</p>}
       </div>
