@@ -1,5 +1,7 @@
 let genresListInitialState = {};
 
-let moviesListInitialState = {};
+let moviesListInitialState = {
+  movies : []
+};
 
 export {genresListInitialState, moviesListInitialState};
