@@ -1,6 +1,6 @@
-import getGenresListInitialState from './InitialStates';
+import {genresListInitialState} from './InitialStates';
 
-let GenresListReducer = (state = getGenresListInitialState, action) => {
+let GenresListReducer = (state = genresListInitialState, action) => {
   switch(action.type) {
     case 'GET_GENRES_LIST':
       return action.payLoad;
