@@ -5,4 +5,11 @@ let getGenresListAction = (genresObj) => {
   }
 }
 
-export default getGenresListAction;
+let getMoviesListAction = (moviesObj) => {
+  return {
+    type: 'GET_MOVIES_LIST',
+    payLoad: moviesObj
+  }  
+}
+
+export  {getGenresListAction, getMoviesListAction};
