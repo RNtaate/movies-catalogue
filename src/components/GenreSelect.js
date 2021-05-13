@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 
 let GenreSelect = (props) => {
 
-  let {genresObject} = props
+  let {genresObject, handleGenresSelection} = props;
+
+  let handleGenresSelectChange = (e) => {
+    handleGenresSelection(e.target.value);
+  }
 
   return (
-    <select>
+    <select onChange={handleGenresSelectChange}>
+      <option value="28|35">Genres</option>
       {genresObject.genres.map((genre) => <option value={genre.id}>{genre.name}</option>)}
     </select>
   )
