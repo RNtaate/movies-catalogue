@@ -19,7 +19,7 @@ let YearSelect = (props) => {
   }
   return(
     <select onChange={handleYearSelectChange}>
-      <option value="">Year</option>
+      <option value="2021">Year</option>
       {years.map((year) => <option value={year}>{year}</option>)}
     </select>
   );
