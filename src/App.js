@@ -23,19 +23,25 @@ let App = (props) => {
   let {moviesObject, genresObject} = props
 
   let getBulkMoviesList = () => {
+
+    let numberOfPages = 0;
+
     fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres)
     .then((result) => {
       props.getMyMoviesList(result);
+      numberOfPages = result.total_pages;
       setMoviesLoaded(true);
 
-      if(result.total_pages > 1){
+      if(numberOfPages > 1){
         for(let i = 2; i <= PAGENUMBERS; i += 1) {
-          fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres, i)
-          .then((result) => {
-            props.getMyMoviesList(result);
-          }).catch((e) => {
-            console.log('Something went horribly wrong!!!')
-          })
+          if(i <= numberOfPages) {
+            fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres, i)
+            .then((result) => {
+              props.getMyMoviesList(result);
+            }).catch((e) => {
+              console.log('Something went horribly wrong!!!')
+            })
+          }
         }
       }
 
