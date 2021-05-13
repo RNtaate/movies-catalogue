@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 let years = [];
 let currentYear = new Date();
@@ -9,13 +10,27 @@ for (let i = 1; i <= 18; i += 1) {
   currentYear -= 1
 }
 
-let YearSelect = () => {
+let YearSelect = (props) => {
+
+  const {handleYearSelection} = props
+
+  let handleYearSelectChange = (e) => {
+    handleYearSelection(e.target.value);
+  }
   return(
-    <select >
+    <select onChange={handleYearSelectChange}>
       <option value="">Year</option>
       {years.map((year) => <option value={year}>{year}</option>)}
     </select>
   );
+}
+
+YearSelect.defaultProps = {
+  handleYearSelection : () => {}
+}
+
+YearSelect.propTypes = {
+  handleYearSelection: PropTypes.func,
 }
 
 export default YearSelect;
