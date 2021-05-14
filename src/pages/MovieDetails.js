@@ -1,14 +1,24 @@
 import React from 'react';
+import {Link, useLocation} from 'react-router-dom';
+
+import {convertToGenreNames} from '../Helpers/HelperMethods';
 
 let MovieDetails = () => {
+
+  let location = useLocation();
+
+  let { movieObj, genresObj } = location.state;
+  let movieGenreNames = convertToGenreNames(movieObj.genre_ids, genresObj.genres);
+
   return (
     <div className="movie-details-div">
+      <Link to="/">Back</Link>
       <div className="movie-content-div">
         <h2>Movie Title</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, maxime hic. Neque, vero. Suscipit ab doloribus id nisi. Maiores, dicta totam, aspernatur assumenda rerum laboriosam consectetur voluptatum impedit temporibus nam nisi accusamus mollitia ipsa esse. Rerum incidunt molestiae voluptatem, aut aliquid nemo facilis, vitae tenetur alias, odit iste. Placeat eaque, fuga voluptatem architecto doloribus quasi autem expedita mollitia facilis dolorum!</p>
-        <p>Starring: Roy Ntaate, Guy Gustave</p>
-        <p>Genre: Action, Comedy, Adventure</p>
-        <p>Rating: 8.7</p>
+        <h2>{movieObj.title}</h2>
+        <p>{movieObj.overview}</p>
+        <p>Genre: {movieGenreNames}</p>
+        <p>Rating: {movieObj.vote_average}</p>
       </div>
     </div>
   )
