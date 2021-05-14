@@ -6,7 +6,7 @@ import YearSelect from '../components/YearSelect';
 import GenreSelect from '../components/GenreSelect';
 import {fetchGenreList, fetchMoviesList} from '../Helpers/FetchMethods';
 import { API_KEY } from '../Helpers/HelperConstants';
-import {getGenresListAction, getMoviesListAction} from '../actions/index';
+import {getGenresListAction, getMoviesListAction, changeYearAction, changeGenreAction} from '../actions/index';
 import MovieCard from '../components/MovieCard';
 
 let App = (props) => {
@@ -15,11 +15,6 @@ let App = (props) => {
   const [moviesLoaded, setMoviesLoaded] = useState(false);
   const PAGENUMBERS = 3;
 
-  const [localListFilters, setLocalListFilters] = useState({
-    year: 2021,
-    genres: '28|35'
-  })
-
   let {moviesObject, genresObject} = props
 
   let getBulkMoviesList = () => {
@@ -27,7 +22,7 @@ let App = (props) => {
     let numberOfPages = 0;
     let moviesArray = [];
 
-    fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres)
+    fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre)
     .then((result) => {
       moviesArray = moviesArray.concat(result.results);
       props.getMyMoviesList(moviesArray);
@@ -37,7 +32,7 @@ let App = (props) => {
       if(numberOfPages > 1){
         for(let i = 2; i <= PAGENUMBERS; i += 1) {
           if(i <= numberOfPages) {
-            fetchMoviesList(API_KEY, localListFilters.year, localListFilters.genres, i)
+            fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre, i)
             .then((result) => {
               moviesArray = moviesArray.concat(result.results);
               props.getMyMoviesList(moviesArray);
@@ -54,20 +49,22 @@ let App = (props) => {
   }
 
   let handleYearSelection = (yearValue) => {
-    setLocalListFilters({ ...localListFilters, year: yearValue});
+    props.changeMyYear(yearValue);
   }
 
   let handleGenresSelection = (genreValue) => {
-    setLocalListFilters({ ...localListFilters, genres: genreValue});
+    props.changeMyGenre(genreValue);
   }
 
   useEffect(() => {
-    fetchGenreList(API_KEY).then((result) => {
-      props.getMyGenresList(result);
-      setGenresLoaded(true);
-    }).catch((e) => {
-      console.log('Something went horribly wrong and I some how');
-    })
+    if(!genresObject.genres){
+      fetchGenreList(API_KEY).then((result) => {
+        props.getMyGenresList(result);
+        setGenresLoaded(true);
+      }).catch((e) => {
+        console.log('Something went horribly wrong and I some how');
+      })
+    }
 
     // getBulkMoviesList();
   }, [])
@@ -75,10 +72,10 @@ let App = (props) => {
   return (
     <div className="App">
       <YearSelect handleYearSelection={handleYearSelection}/>
-      {genresLoaded ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
+      {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
       <button onClick={getBulkMoviesList}>Submit Filter</button>
       <div>
-        {moviesLoaded ? moviesObject.movies.map((movie) => <MovieCard movie={movie} genresObject={genresObject}/>) : <p>No movies Yet</p>}
+        {moviesObject.movies.length !== 0 ? moviesObject.movies.map((movie) => <MovieCard movie={movie} genresObject={genresObject}/>) : <p>No movies Yet</p>}
       </div>
     </div>
   );
@@ -100,6 +97,13 @@ let mapDispatchToProps = (dispatch) => {
 
     getMyMoviesList : (moviesObj) => {
       dispatch(getMoviesListAction(moviesObj));
+    },
+
+    changeMyYear : (year) => {
+      dispatch(changeYearAction(year));
+    },
+    changeMyGenre : (genre) => {
+      dispatch(changeGenreAction(genre));
     }
   }
 }
