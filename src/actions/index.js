@@ -12,4 +12,18 @@ let getMoviesListAction = (moviesObj) => {
   }  
 }
 
-export  {getGenresListAction, getMoviesListAction};
+let changeYearAction = (year) => {
+  return {
+    type: 'CHANGE_YEAR',
+    payLoad: year
+  }
+}
+
+let changeGenreAction = (genre) => {
+  return {
+    type: 'CHANGE_GENRE',
+    payLoad: genre
+  }
+}
+
+export  {getGenresListAction, getMoviesListAction, changeYearAction, changeGenreAction};
