@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+import '../App.css';
 
-import YearSelect from './components/YearSelect';
-import GenreSelect from './components/GenreSelect';
-import {fetchGenreList, fetchMoviesList} from './Helpers/FetchMethods';
-import { API_KEY } from './Helpers/HelperConstants';
-import {getGenresListAction, getMoviesListAction} from './actions/index';
-import MovieCard from './components/MovieCard';
+import YearSelect from '../components/YearSelect';
+import GenreSelect from '../components/GenreSelect';
+import {fetchGenreList, fetchMoviesList} from '../Helpers/FetchMethods';
+import { API_KEY } from '../Helpers/HelperConstants';
+import {getGenresListAction, getMoviesListAction} from '../actions/index';
+import MovieCard from '../components/MovieCard';
 
 let App = (props) => {
 
