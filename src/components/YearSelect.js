@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 let years = [];
@@ -12,14 +13,13 @@ for (let i = 1; i <= 18; i += 1) {
 
 let YearSelect = (props) => {
 
-  const {handleYearSelection} = props
+  const {handleYearSelection, moviesObject} = props
 
   let handleYearSelectChange = (e) => {
     handleYearSelection(e.target.value);
   }
   return(
-    <select onChange={handleYearSelectChange}>
-      <option value="2021">Year</option>
+    <select onChange={handleYearSelectChange} value={moviesObject.year}>
       {years.map((year) => <option value={year}>{year}</option>)}
     </select>
   );
@@ -33,4 +33,10 @@ YearSelect.propTypes = {
   handleYearSelection: PropTypes.func,
 }
 
-export default YearSelect;
+let mapStateToProps = (state) => {
+  return {
+    moviesObject : state.moviesListReducer
+  }
+}
+
+export default connect(mapStateToProps, null)(YearSelect);

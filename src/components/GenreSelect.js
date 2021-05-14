@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 let GenreSelect = (props) => {
 
-  let {genresObject, handleGenresSelection} = props;
+  let {genresObject, handleGenresSelection, moviesObject} = props;
 
   let handleGenresSelectChange = (e) => {
     handleGenresSelection(e.target.value);
   }
 
   return (
-    <select onChange={handleGenresSelectChange}>
+    <select onChange={handleGenresSelectChange} value={moviesObject.genre}>
       <option value="28|35">Genres</option>
       {genresObject.genres.map((genre) => <option value={genre.id}>{genre.name}</option>)}
     </select>
@@ -19,7 +19,8 @@ let GenreSelect = (props) => {
 
 let mapStateToProps = (state) => {
   return {
-    genresObject : state.genreListReducer
+    genresObject : state.genreListReducer,
+    moviesObject : state.moviesListReducer
   }
 }
 
