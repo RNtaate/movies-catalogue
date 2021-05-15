@@ -1,0 +1,68 @@
+.movieCard_container_div {
+  text-decoration: none;
+  width: 18%;
+  height: 450px;
+  max-height: 450px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 10px 5px -5px rgba(0, 0, 0, 0.5);
+}
+
+.movieCard_poster_div {
+  width: 100%;
+  height: 78%;
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.movieCard_content_div {
+  text-align: left;
+  height: 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  padding: 5px;
+  background-color: #fff;
+  color: #999;
+  border: 1px solid #eee;
+}
+
+.title,
+.genre,
+.rating {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 200;
+}
+
+.title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-weight: 300;
+  color: #555;
+  font-size: 1.3em;
+}
+
+.rating_genres_div {
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.genre {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+  font-weight: 300;
+}
+
+.rating {
+  font-weight: 400;
+  width: 40%;
+  display: flex;
+}
