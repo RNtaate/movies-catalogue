@@ -1,0 +1,31 @@
+.app_container_div {
+  position: relative;
+}
+
+.selection_div {
+  background-color: #443;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  position: sticky;
+  top: 0; 
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.6);
+}
+
+.movieList_div {
+  background-color: #332;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1225px;
+  padding-top: 40px;
+  margin: 0 auto;
+  /* justify-content: space-around; */
+}
+
+.movieCard_holder_div {
+  display: flex;
+  width: 25%;
+  justify-content: center;
+  margin-bottom: 50px;
+}
