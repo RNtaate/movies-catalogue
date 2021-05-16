@@ -1,11 +1,11 @@
 .movieCard_container_div {
   text-decoration: none;
-  width: 18%;
+  width: 240px;
   height: 450px;
   max-height: 450px;
   display: flex;
   flex-direction: column;
-  box-shadow: 10px 10px 5px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.5);
 }
 
 .movieCard_poster_div {
@@ -24,9 +24,10 @@
   flex-direction: column;
   justify-content:space-around;
   padding: 5px;
-  background-color: #fff;
-  color: #999;
-  border: 1px solid #eee;
+  padding-left: 8px;
+  background-color: #001;
+  color: #999; 
+  /* border: 1px solid #eee; */
 }
 
 .title,
@@ -42,7 +43,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-weight: 300;
-  color: #555;
+  color: #eee;
   font-size: 1.3em;
 }
 
@@ -59,10 +60,12 @@
   text-overflow: ellipsis;
   padding-right: 10px;
   font-weight: 300;
+  color: cyan;
 }
 
 .rating {
   font-weight: 400;
   width: 40%;
   display: flex;
+  justify-content: flex-end;
 }
