@@ -77,7 +77,7 @@ let App = (props) => {
           <div className={styling.selection_div}>
             <YearSelect handleYearSelection={handleYearSelection}/>
             {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
-            <button onClick={getBulkMoviesList}>Submit Filter</button>
+            <button onClick={getBulkMoviesList} className={styling.submit_button}>Submit Filter</button>
           </div>
         </header>
         
