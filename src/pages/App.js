@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import '../App.css';
+import * as styling from './App.module.css';
 
 import YearSelect from '../components/YearSelect';
 import GenreSelect from '../components/GenreSelect';
@@ -70,14 +70,20 @@ let App = (props) => {
   }, [])
 
   return (
-    <div className="App">
-      <YearSelect handleYearSelection={handleYearSelection}/>
-      {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
-      <button onClick={getBulkMoviesList}>Submit Filter</button>
-      <div>
-        {moviesObject.movies.length !== 0 ? moviesObject.movies.map((movie) => <MovieCard movie={movie} genresObject={genresObject}/>) : <p>No movies Yet</p>}
+  
+      <div className={styling.app_container_div}>
+        <div className={styling.selection_div}>
+          <YearSelect handleYearSelection={handleYearSelection}/>
+          {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
+          <button onClick={getBulkMoviesList}>Submit Filter</button>
+        </div>
+        
+        <div className={styling.movieList_div}>
+          {moviesObject.movies.length !== 0 ? moviesObject.movies.map((movie) => <div className={styling.movieCard_holder_div}><MovieCard movie={movie} genresObject={genresObject}/></div>) : <p>No movies Yet</p>}
+        </div>
+        
       </div>
-    </div>
+
   );
 }
 
