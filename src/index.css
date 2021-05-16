@@ -12,8 +12,22 @@ body {
   background-color: #332;
 }
 
-.genre-select {
-  background-color: #444;
+.genre-select,
+.year-select {
   color: white;
   margin: 0 20px;
+  background-color: rgba(0, 0, 10, 0.8);
+  padding: 5px 5px;
+  outline: none;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.year-select {
+  width: 100px;
+}
+
+.genre-select:hover,
+.year-select:hover {
+  cursor: pointer;
 }
