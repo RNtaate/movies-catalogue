@@ -5,7 +5,7 @@ let genresListInitialState = {};
 
 let moviesListInitialState = {
   movies : [], 
-  year: currentYear.getFullYear,
+  year: 2021,
   genre: '28|35'
 };
 
