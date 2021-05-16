@@ -72,11 +72,14 @@ let App = (props) => {
   return (
   
       <div className={styling.app_container_div}>
-        <div className={styling.selection_div}>
-          <YearSelect handleYearSelection={handleYearSelection}/>
-          {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
-          <button onClick={getBulkMoviesList}>Submit Filter</button>
-        </div>
+        <header className={styling.header_div}>
+          <h1>NORP <small>MOVIES</small></h1>
+          <div className={styling.selection_div}>
+            <YearSelect handleYearSelection={handleYearSelection}/>
+            {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
+            <button onClick={getBulkMoviesList}>Submit Filter</button>
+          </div>
+        </header>
         
         <div className={styling.movieList_div}>
           {moviesObject.movies.length !== 0 ? moviesObject.movies.map((movie) => <div className={styling.movieCard_holder_div}><MovieCard movie={movie} genresObject={genresObject}/></div>) : <p>No movies Yet</p>}

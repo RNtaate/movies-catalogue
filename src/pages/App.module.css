@@ -2,14 +2,32 @@
   position: relative;
 }
 
-.selection_div {
-  background-color: #443;
+.header_div {
+  background-image: url('../assets/movie_back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.5);
   position: sticky;
-  top: 0; 
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.6);
+  padding: 10px 0;
+  padding-left: 4em;
+}
+
+.header_div > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  color: cyan;
+}
+
+.selection_div {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  width: 50%;
 }
 
 .movieList_div {
@@ -20,7 +38,6 @@
   max-width: 1225px;
   padding-top: 40px;
   margin: 0 auto;
-  /* justify-content: space-around; */
 }
 
 .movieCard_holder_div {
