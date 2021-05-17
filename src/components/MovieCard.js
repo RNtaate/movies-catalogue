@@ -2,12 +2,16 @@ import React from 'react';
 import {convertToGenreNames} from '../Helpers/HelperMethods';
 import {Link} from 'react-router-dom';
 import * as styles from './MovieCard.module.css'
+import spinner from '../assets/image_loading5.gif';
+import noPoster from '../assets/no_poster1.jpeg';
 
 let MovieCard = (props) => {
 
   const {movie, genresObject} = props;
 
   let movieGenreNames = convertToGenreNames(movie.genre_ids, genresObject.genres);
+
+  let poster_path = movie.poster_path === null ? noPoster : `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
   return (
 
@@ -19,7 +23,8 @@ let MovieCard = (props) => {
           genresObj: genresObject
         }
       }} className={styles.movieCard_container_div}>
-        <div className={styles.movieCard_poster_div} style={{backgroundImage: `url("https://image.tmdb.org/t/p/w500${movie.poster_path}")`}}></div>
+        <div className={styles.movieCard_poster_div} style={{backgroundImage: `url("${poster_path}"), url("${spinner}")`}}>
+        </div>
 
         <div className={styles.movieCard_content_div}>
           <h2 className={styles.title}>{movie.title}</h2>
@@ -30,7 +35,6 @@ let MovieCard = (props) => {
         </div>
       </Link>
     </div>
-
   )
 }
 
