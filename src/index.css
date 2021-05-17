@@ -21,6 +21,9 @@ body {
   outline: none;
   border: 1px solid #333;
   border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1.1px;
 }
 
 .year-select {
