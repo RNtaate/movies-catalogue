@@ -13,6 +13,11 @@ let App = (props) => {
 
   const [genresLoaded, setGenresLoaded] = useState(false);
   const [moviesLoaded, setMoviesLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    moviesListErrorMessage: 'No Filter Submitted. Click on the "Submit Filter" button to display your first selection of movies from the year "2021" and the "Action, Comedy" genres.',
+
+    genresListErrorMessage: 'No Genres Fetched'
+  });
   const PAGENUMBERS = 3;
 
   let {moviesObject, genresObject} = props
@@ -37,15 +42,27 @@ let App = (props) => {
               moviesArray = moviesArray.concat(result.results);
               props.getMyMoviesList(moviesArray);
             }).catch((e) => {
-              console.log('Something went horribly wrong!!!')
+              setErrorMessage({...errorMessage, moviesListErrorMessage: "Sorry!, something's wrong"});
             })
           }
         }
       }
 
     }).catch((e) => {
-      console.log('Something went horribly wrong!!!')
+      setErrorMessage({...errorMessage, moviesListErrorMessage: 'Sorry!, something went wrong. This could be due to a number of reasons such as "Poor or No internet connection". Please try again later'}); 
     })
+  }
+
+  let resetMovieList = () => {
+    props.getMyMoviesList([]);
+    setErrorMessage({...errorMessage, moviesListErrorMessage: 'Loading ...'});
+  }
+
+  let handleFetchingMovies = () => {
+    resetMovieList();
+    setTimeout(() => {
+      getBulkMoviesList();
+    }, 500);
   }
 
   let handleYearSelection = (yearValue) => {
@@ -62,7 +79,7 @@ let App = (props) => {
         props.getMyGenresList(result);
         setGenresLoaded(true);
       }).catch((e) => {
-        console.log('Something went horribly wrong and I some how');
+        setErrorMessage({...errorMessage, genresListErrorMessage: 'Genre Load Failed!'})
       })
     }
 
@@ -76,13 +93,13 @@ let App = (props) => {
           <h1>NORP <small>MOVIES</small></h1>
           <div className={styling.selection_div}>
             <YearSelect handleYearSelection={handleYearSelection}/>
-            {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p>No Genres Yet</p>}
-            <button onClick={getBulkMoviesList} className={styling.submit_button}>Submit Filter</button>
+            {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}
+            <button onClick={handleFetchingMovies} className={styling.submit_button}>Submit Filter</button>
           </div>
         </header>
         
         <div className={styling.movieList_div}>
-          {moviesObject.movies.length !== 0 ? moviesObject.movies.map((movie) => <div className={styling.movieCard_holder_div}><MovieCard movie={movie} genresObject={genresObject}/></div>) : <p>No movies Yet</p>}
+          {moviesObject.movies.length !== 0 ? moviesObject.movies.map((movie) => <div className={styling.movieCard_holder_div}><MovieCard movie={movie} genresObject={genresObject}/></div>) : <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
         </div>
         
       </div>
