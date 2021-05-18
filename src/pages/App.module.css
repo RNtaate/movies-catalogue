@@ -67,3 +67,25 @@
   justify-content: center;
   margin-bottom: 50px;
 }
+
+.movie_error_par,
+.genre_error_par {
+  color: #bbb;
+  font-family: 'Roboto', sans-serif;
+}
+
+.movie_error_par {
+  max-width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2em;
+  letter-spacing: 0.1em;
+}
+
+.genre_error_par {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
