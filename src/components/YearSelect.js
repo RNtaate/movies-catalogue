@@ -20,7 +20,7 @@ let YearSelect = (props) => {
   }
   return(
     <select onChange={handleYearSelectChange} value={moviesObject.year} className="year-select">
-      {years.map((year) => <option value={year}>{year}</option>)}
+      {years.map((year) => <option value={year} key={year}>{year}</option>)}
     </select>
   );
 }
