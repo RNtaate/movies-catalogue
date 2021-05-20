@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './pages/App';
+import { Provider } from 'react-redux';
 import RouterComp from './pages/RouterComp';
 import store from './Store';
-import {Provider} from 'react-redux'
 
 ReactDOM.render(
   <React.StrictMode>

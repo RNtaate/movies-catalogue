@@ -1,12 +1,12 @@
-import {genresListInitialState} from './InitialStates';
+import { genresListInitialState } from './InitialStates';
 
-let GenresListReducer = (state = genresListInitialState, action) => {
-  switch(action.type) {
+const GenresListReducer = (state = genresListInitialState, action) => {
+  switch (action.type) {
     case 'GET_GENRES_LIST':
       return action.payLoad;
-    default: 
+    default:
       return state;
   }
-}
+};
 
 export default GenresListReducer;

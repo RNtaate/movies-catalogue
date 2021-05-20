@@ -1,17 +1,24 @@
 import React from 'react';
-import {render as rtlRender} from '@testing-library/react';
-import {createStore} from 'redux';
+import { render as rtlRender } from '@testing-library/react';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import PropTypes from 'prop-types';
 import allReducers from '../../reducers/index';
 
-export const renderWithRedux = (
-  ui, 
-  {initialState, ...renderOptions} = {}
+const renderWithRedux = (
+  ui,
+  { initialState, ...renderOptions } = {},
 ) => {
   const store = createStore(allReducers, initialState);
-  const Wrapper = ({children}) => (
+  const Wrapper = ({ children }) => (
     <Provider store={store}>{children}</Provider>
   );
 
-  return rtlRender(ui, {wrapper: Wrapper, ...renderOptions});
-}
+  Wrapper.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
+  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+};
+
+export default renderWithRedux;

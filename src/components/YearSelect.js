@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 let years = [];
@@ -8,35 +8,34 @@ currentYear = currentYear.getFullYear();
 
 for (let i = 1; i <= 18; i += 1) {
   years = years.concat((currentYear).toString());
-  currentYear -= 1
+  currentYear -= 1;
 }
 
-let YearSelect = (props) => {
+const YearSelect = (props) => {
+  const { handleYearSelection, moviesObject } = props;
 
-  const {handleYearSelection, moviesObject} = props
-
-  let handleYearSelectChange = (e) => {
+  const handleYearSelectChange = (e) => {
     handleYearSelection(e.target.value);
-  }
-  return(
+  };
+  return (
     <select onChange={handleYearSelectChange} value={moviesObject.year} className="year-select" data-testid="yearSelect">
       {years.map((year) => <option value={year} key={year}>{year}</option>)}
     </select>
   );
-}
+};
 
 YearSelect.defaultProps = {
-  handleYearSelection : () => {}
-}
+  handleYearSelection: () => {},
+  moviesObject: {},
+};
 
 YearSelect.propTypes = {
   handleYearSelection: PropTypes.func,
-}
+  moviesObject: PropTypes.instanceOf(Object),
+};
 
-let mapStateToProps = (state) => {
-  return {
-    moviesObject : state.moviesListReducer
-  }
-}
+const mapStateToProps = (state) => ({
+  moviesObject: state.moviesListReducer,
+});
 
 export default connect(mapStateToProps, null)(YearSelect);

@@ -1,16 +1,18 @@
-import {moviesListInitialState} from './InitialStates';
+import { moviesListInitialState } from './InitialStates';
 
-let MoviesListReducer = (state = moviesListInitialState, action) => {
-  switch(action.type) {
+const MoviesListReducer = (state = moviesListInitialState, action) => {
+  switch (action.type) {
     case 'GET_MOVIES_LIST':
-      return { ...state, movies: action.payLoad};
+      return { ...state, movies: state.movies.concat(action.payLoad) };
     case 'CHANGE_YEAR':
-      return { ...state, year: action.payLoad};
+      return { ...state, year: action.payLoad };
     case 'CHANGE_GENRE':
-        return { ...state, genre: action.payLoad};  
-    default: 
+      return { ...state, genre: action.payLoad };
+    case 'REMOVE_MOVIES_LIST':
+      return { ...state, movies: [] };
+    default:
       return state;
   }
-}
+};
 
 export default MoviesListReducer;

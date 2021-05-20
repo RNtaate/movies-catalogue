@@ -1,12 +1,9 @@
-let currentYear = new Date();
+const genresListInitialState = {};
 
-
-let genresListInitialState = {};
-
-let moviesListInitialState = {
-  movies : [], 
+const moviesListInitialState = {
+  movies: [],
   year: 2021,
-  genre: '28|35'
+  genre: '28|35',
 };
 
-export {genresListInitialState, moviesListInitialState};
+export { genresListInitialState, moviesListInitialState };

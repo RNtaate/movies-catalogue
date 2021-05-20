@@ -1,29 +1,31 @@
-let getGenresListAction = (genresObj) => {
-  return {
-    type: 'GET_GENRES_LIST',
-    payLoad: genresObj
-  }
-}
+const getGenresListAction = (genresObj) => ({
+  type: 'GET_GENRES_LIST',
+  payLoad: genresObj,
+});
 
-let getMoviesListAction = (moviesObj) => {
-  return {
-    type: 'GET_MOVIES_LIST',
-    payLoad: moviesObj
-  }  
-}
+const getMoviesListAction = (moviesObj) => ({
+  type: 'GET_MOVIES_LIST',
+  payLoad: moviesObj,
+});
 
-let changeYearAction = (year) => {
-  return {
-    type: 'CHANGE_YEAR',
-    payLoad: year
-  }
-}
+const changeYearAction = (year) => ({
+  type: 'CHANGE_YEAR',
+  payLoad: year,
+});
 
-let changeGenreAction = (genre) => {
-  return {
-    type: 'CHANGE_GENRE',
-    payLoad: genre
-  }
-}
+const changeGenreAction = (genre) => ({
+  type: 'CHANGE_GENRE',
+  payLoad: genre,
+});
 
-export  {getGenresListAction, getMoviesListAction, changeYearAction, changeGenreAction};
+const removeMoviesListAction = () => ({
+  type: 'REMOVE_MOVIES_LIST',
+});
+
+export {
+  getGenresListAction,
+  getMoviesListAction,
+  changeYearAction,
+  changeGenreAction,
+  removeMoviesListAction,
+};
