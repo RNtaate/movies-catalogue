@@ -90,7 +90,7 @@ let App = (props) => {
   
       <div className={styling.app_container_div}>
         <header className={styling.header_div}>
-          <h1>NORP <small>MOVIES</small></h1>
+          <h1 data-testid="main-heading">NORP <small>MOVIES</small></h1>
           <div className={styling.selection_div}>
             <YearSelect handleYearSelection={handleYearSelection}/>
             {genresObject.genres ? <GenreSelect handleGenresSelection={handleGenresSelection}/> : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}

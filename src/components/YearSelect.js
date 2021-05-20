@@ -19,7 +19,7 @@ let YearSelect = (props) => {
     handleYearSelection(e.target.value);
   }
   return(
-    <select onChange={handleYearSelectChange} value={moviesObject.year} className="year-select">
+    <select onChange={handleYearSelectChange} value={moviesObject.year} className="year-select" data-testid="yearSelect">
       {years.map((year) => <option value={year} key={year}>{year}</option>)}
     </select>
   );

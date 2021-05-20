@@ -10,7 +10,7 @@ let GenreSelect = (props) => {
   }
 
   return (
-    <select onChange={handleGenresSelectChange} value={moviesObject.genre} className="genre-select">
+    <select onChange={handleGenresSelectChange} value={moviesObject.genre} className="genre-select" data-testid="genreSelect">
       <option value="28|35" key="28|35">Genres</option>
       {genresObject.genres.map((genre) => <option value={genre.id} key={genre.id}>{genre.name}</option>)}
     </select>
