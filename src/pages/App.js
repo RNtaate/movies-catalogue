@@ -79,7 +79,6 @@ const App = (props) => {
       });
     }
 
-    // getBulkMoviesList();
   }, []);
 
   return (
