@@ -22,11 +22,12 @@
   height: 22%;
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
+  justify-content: space-around;
   padding: 5px;
   padding-left: 8px;
   background-color: #001;
-  color: #999; 
+  color: #999;
+
   /* border: 1px solid #eee; */
 }
 
