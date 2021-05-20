@@ -78,7 +78,6 @@ const App = (props) => {
         setErrorMessage({ ...errorMessage, genresListErrorMessage: 'Genre Load Failed!' });
       });
     }
-
   }, []);
 
   return (
