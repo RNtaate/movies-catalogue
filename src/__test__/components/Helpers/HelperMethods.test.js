@@ -1,4 +1,4 @@
-import convertToGenreNames from '../../Helpers/HelperMethods';
+import convertToGenreNames from '../../../components/Helpers/HelperMethods';
 
 const genreArray = [28, 35, 18];
 const genresObjectArray = [

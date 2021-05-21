@@ -1,8 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import renderWithRedux from '../CustomRender/RenderWithRedux';
+import renderWithRedux from '../../CustomRender/RenderWithRedux';
 
-import App from '../../pages/App';
+import App from '../../../container/pages/App';
 
 test('Should render correctly', () => {
   const comp = renderWithRedux(<App />);

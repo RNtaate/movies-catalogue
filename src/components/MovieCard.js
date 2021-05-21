@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import convertToGenreNames from '../Helpers/HelperMethods';
+
+import convertToGenreNames from './Helpers/HelperMethods';
 import * as styles from './MovieCard.module.css';
 import spinner from '../assets/image_loading5.gif';
 import noPoster from '../assets/no_poster1.jpeg';

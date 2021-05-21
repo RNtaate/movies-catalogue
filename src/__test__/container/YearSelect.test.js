@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import renderWithRedux from '../CustomRender/RenderWithRedux';
 
-import YearSelect from '../../components/YearSelect';
+import YearSelect from '../../container/YearSelect';
 
 const initialState = {
   moviesListReducer: {

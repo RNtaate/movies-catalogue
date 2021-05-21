@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as styling from './App.module.css';
 
-import YearSelect from '../components/YearSelect';
-import GenreSelect from '../components/GenreSelect';
-import { fetchGenreList, fetchMoviesList } from '../Helpers/FetchMethods';
-import { API_KEY } from '../Helpers/HelperConstants';
+import YearSelect from '../YearSelect';
+import GenreSelect from '../GenreSelect';
+import { fetchGenreList, fetchMoviesList } from '../../components/Helpers/FetchMethods';
+import { API_KEY } from '../../components/Helpers/HelperConstants';
 import {
   getGenresListAction, getMoviesListAction, changeYearAction, changeGenreAction,
   removeMoviesListAction,
-} from '../actions/index';
-import MovieCard from '../components/MovieCard';
+} from '../../actions/index';
+import MovieCard from '../../components/MovieCard';
 
 const App = (props) => {
   const [errorMessage, setErrorMessage] = useState({

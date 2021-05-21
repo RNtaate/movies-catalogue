@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-import convertToGenreNames from '../Helpers/HelperMethods';
 import * as styler from './MovieDetails.module.css';
-import spinner from '../assets/image_loading2.gif';
-import noBackdrop from '../assets/no_poster2.png';
+import spinner from '../../assets/image_loading2.gif'
+import noBackdrop from '../../assets/no_poster2.png';
 import {fetchMovieDetails} from '../Helpers/FetchMethods';
 import { API_KEY } from '../Helpers/HelperConstants';
 
-const MovieDetails = (props) => {
+const MovieDetails = () => {
 
   let [movieObj, setMovieObj] = useState({});
   let [movieDetails, setMovieDetails] = useState({});

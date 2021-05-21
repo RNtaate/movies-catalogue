@@ -3,7 +3,7 @@
 }
 
 .header_div {
-  background-image: url('../assets/movie_back.jpg');
+  background-image: url('../../assets/movie_back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

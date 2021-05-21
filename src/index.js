@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
-import RouterComp from './pages/RouterComp';
+import RouterComp from './container/pages/RouterComp';
 import store from './Store';
 
 ReactDOM.render(
