@@ -1,4 +1,4 @@
-import { getGenreListUrl, getMovieListUrl } from './HelperConstants';
+import { getGenreListUrl, getMovieListUrl, getMovieDetailsUrl } from './HelperConstants';
 
 const fetchGenreList = async (apiKey) => {
   const url = getGenreListUrl(apiKey);
@@ -16,4 +16,12 @@ const fetchMoviesList = async (apiKey, year, genreList, page = 1) => {
   return response;
 };
 
-export { fetchGenreList, fetchMoviesList };
+const fetchMovieDetails = async (apiKey, movieId) => {
+  const url = getMovieDetailsUrl(apiKey, movieId);
+  const req = await fetch(url);
+  const response = await req.json();
+
+  return response;
+};
+
+export { fetchGenreList, fetchMoviesList, fetchMovieDetails };
