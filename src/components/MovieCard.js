@@ -16,16 +16,7 @@ const MovieCard = (props) => {
   return (
 
     <div>
-      <Link
-        to={{
-          pathname: `/movie/${movie.id}`,
-          state: {
-            movieObj: movie,
-            genresObj: genresObject,
-          },
-        }}
-        className={styles.movieCard_container_div}
-      >
+      <Link to={`/movie/${movie.id}`} className={styles.movieCard_container_div}>
         <div className={styles.movieCard_poster_div} style={{ backgroundImage: `url("${posterPath}"), url("${spinner}")` }} />
 
         <div className={styles.movieCard_content_div}>
