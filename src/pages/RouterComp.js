@@ -7,7 +7,7 @@ const RouterComp = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/" exact component={App} />
-      <Route path="/details" exact component={MovieDetails} />
+      <Route path="/movie" component={MovieDetails} />
     </Switch>
   </BrowserRouter>
 );

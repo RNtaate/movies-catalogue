@@ -18,7 +18,7 @@ const MovieCard = (props) => {
     <div>
       <Link
         to={{
-          pathname: '/details',
+          pathname: `/movie/${movie.id}`,
           state: {
             movieObj: movie,
             genresObj: genresObject,
