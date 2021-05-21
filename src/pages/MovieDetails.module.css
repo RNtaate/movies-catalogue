@@ -28,10 +28,11 @@
   font-size: 40px;
 }
 
-.movie_content_div {
+.movie_content_div,
+.error_message_div {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top right, rgba(0, 0, 17, 0.8) 30%, transparent);
+  /* background: linear-gradient(to top right, rgba(0, 0, 17, 0.8) 30%, transparent); */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -40,6 +41,22 @@
   padding-left: 20px;
   padding-bottom: 20px;
   border-radius: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.error_message_div {
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.error_message_div > p {
+  width: 50%;
+  text-align: center;
+  line-height: 25px;
+  letter-spacing: 1.1px;
 }
 
 .movie_desc_title,
