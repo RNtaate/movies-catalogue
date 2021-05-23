@@ -78,6 +78,10 @@ const App = (props) => {
         setErrorMessage({ ...errorMessage, genresListErrorMessage: 'Genre Load Failed!' });
       });
     }
+
+    if(moviesObject.movies.length === 0){
+      handleFetchingMovies();
+    }
   }, []);
 
   return (
