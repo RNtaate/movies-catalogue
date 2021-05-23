@@ -16,9 +16,13 @@ const fetchMoviesList = async (apiKey, year, genreList, page = 1) => {
   return response;
 };
 
-const fetchMovieDetails = async (apiKey, movieId) => {
+const fetchMovieDetails = async ( apiKey, movieId) => {
   const url = getMovieDetailsUrl(apiKey, movieId);
   const req = await fetch(url);
+  if(!req.ok){
+    throw new Error(`Request failed with status code ${req.status}`);
+  }
+
   const response = await req.json();
 
   return response;
