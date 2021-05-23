@@ -3,9 +3,11 @@
 [![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)]()
 
 ## Project Description
+
+> ### Catalogue of Statistics
 > This project is a capstone project built with ReactJS and Redux upon the completion of the React and Redux curriculum of the [Microverse Program](https:www.microverse.org).
 
-> The Project is a movies catalogue web page which fetches and displays a list of movies to the User depending on certain selection choices such as "Year of release", and "Genre". The User can also select a single movie to view its details.
+> It is a movies catalogue web page which fetches and displays a list of movies to the User depending on certain selection choices such as "Year of release", and "Genre". The User can also select a single movie to view its details.
 
 ### Screenshots
 
