@@ -79,7 +79,7 @@ const App = (props) => {
       });
     }
 
-    if(moviesObject.movies.length === 0){
+    if (moviesObject.movies.length === 0) {
       handleFetchingMovies();
     }
   }, []);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import App from './App';
-import App from '../../container/pages/App';
+import App from './App';
 import MovieDetails from '../../components/pages/MovieDetails';
 
 const RouterComp = () => (
