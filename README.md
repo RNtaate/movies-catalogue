@@ -1,6 +1,7 @@
 # Movies-Catalogue
 
 [![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)]()
+![Linters](https://github.com/RNtaate/movies-catalogue/workflows/Linters/badge.svg)
 
 ## Project Description
 
