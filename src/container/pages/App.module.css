@@ -1,0 +1,90 @@
+.app_container_div {
+  position: relative;
+}
+
+.header_div {
+  background-image: url('../../assets/movie_back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  padding: 10px 0;
+  padding-left: 4em;
+}
+
+.header_div > h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  color: cyan;
+}
+
+.selection_div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  width: 50%;
+}
+
+.submit_button {
+  border: 1px solid #333;
+  padding: 5px 18px;
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #ccc;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.submit_button:hover {
+  cursor: pointer;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.movieList_div {
+  background-color: #332;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1225px;
+  padding-top: 40px;
+  margin: 0 auto;
+}
+
+.movieCard_holder_div {
+  display: flex;
+  width: 25%;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.movie_error_par,
+.genre_error_par {
+  color: #bbb;
+  font-family: 'Roboto', sans-serif;
+}
+
+.movie_error_par {
+  max-width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 2em;
+  letter-spacing: 0.1em;
+}
+
+.genre_error_par {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}

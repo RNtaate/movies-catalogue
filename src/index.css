@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #332;
+}
+
+.genre-select,
+.year-select {
+  color: white;
+  margin: 0 20px;
+  background-color: rgba(0, 0, 10, 0.8);
+  padding: 5px 5px;
+  outline: none;
+  border: 1px solid #333;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  letter-spacing: 1.1px;
+}
+
+.year-select {
+  width: 100px;
+}
+
+.genre-select:hover,
+.year-select:hover {
+  cursor: pointer;
+}

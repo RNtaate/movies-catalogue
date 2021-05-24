@@ -1,0 +1,94 @@
+.movie_details_container_div {
+  width: 100%;
+  height: 100vh;
+  max-width: 1300px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.movie_details_div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
+}
+
+.back_link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 40px;
+}
+
+.movie_content_div,
+.error_message_div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #aaa;
+  font-family: 'Roboto', sans-serif;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.error_message_div {
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.error_message_div > p {
+  width: 50%;
+  text-align: center;
+  line-height: 25px;
+  letter-spacing: 1.1px;
+}
+
+.movie_desc_title,
+.movie_desc_par,
+.movie_desc_genre {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.movie_desc_title {
+  font-size: 40px;
+  font-weight: 300;
+  color: #ddd;
+}
+
+.movie_desc_par {
+  font-weight: 300;
+  word-spacing: 2px;
+  line-height: 20px;
+  letter-spacing: 1.3px;
+  color: #bbb;
+  font-size: 14px;
+}
+
+.movie_desc_genre {
+  color: cyan;
+}
+
+.movie_desc_rating_div {
+  display: flex;
+  align-items: flex-start;
+}
+
+.movie_desc_rating_div > span {
+  margin-left: 10px;
+}
