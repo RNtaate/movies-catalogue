@@ -1,5 +1,5 @@
 # Movies-Catalogue
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/34bf924a-7a1d-4078-975d-6fccadcc939c/deploy-status)](https://app.netlify.com/sites/norp-movies/deploys)
 [![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)]()
 ![Linters](https://github.com/RNtaate/movies-catalogue/workflows/Linters/badge.svg)
 
