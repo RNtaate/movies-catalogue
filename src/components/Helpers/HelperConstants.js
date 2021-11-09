@@ -1,4 +1,4 @@
-export const API_KEY = 'd6d714118fedcc0f16131a2c86c27bfa';
+export const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const getGenreListUrl = (apiKey) => `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
 
