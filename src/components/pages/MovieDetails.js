@@ -61,7 +61,11 @@ const MovieDetails = () => {
               </p>
               <div className={styler.movie_desc_rating_div}>
                 {Array.from(Array(Math.round(movieObj.vote_average)).keys()).map((el) => <i className="fas fa-star" style={{ color: 'orange', marginRight: '5px' }} key={el} />)}
-                <span>{movieObj.vote_average}</span>
+                <span>
+                  {Math.round(movieObj.vote_average)}
+                  {' '}
+                  / 10
+                </span>
               </div>
             </div>
           )
