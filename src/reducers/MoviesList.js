@@ -10,6 +10,10 @@ const MoviesListReducer = (state = moviesListInitialState, action) => {
       return { ...state, genre: action.payLoad };
     case 'REMOVE_MOVIES_LIST':
       return { ...state, movies: [] };
+    case 'SET_NUMBER_OF_PAGES':
+      return {...state, numberOfPages: action.payLoad}
+    case 'SET_PAGE_NUMBER':
+      return {...state, pageNumber: action.payLoad}
     default:
       return state;
   }
