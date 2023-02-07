@@ -22,10 +22,22 @@ const removeMoviesListAction = () => ({
   type: 'REMOVE_MOVIES_LIST',
 });
 
+const setNumberOfPages = (number) => ({
+  type: 'SET_NUMBER_OF_PAGES',
+  payLoad: number,
+})
+
+const setPageNumber = (pageNumber) => ({
+  type: "SET_PAGE_NUMBER",
+  payLoad: pageNumber
+})
+
 export {
   getGenresListAction,
   getMoviesListAction,
   changeYearAction,
   changeGenreAction,
   removeMoviesListAction,
+  setNumberOfPages,
+  setPageNumber,
 };
