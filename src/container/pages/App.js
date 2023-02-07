@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as styling from './App.module.css';
@@ -10,8 +10,10 @@ import { API_KEY } from '../../components/Helpers/HelperConstants';
 import {
   getGenresListAction, getMoviesListAction, changeYearAction, changeGenreAction,
   removeMoviesListAction,
+  setNumberOfPages,
+  setPageNumber
 } from '../../actions/index';
-import MovieCard from '../../components/MovieCard';
+import MovieCard from '../../components/MovieCard'; 
 
 const App = (props) => {
   const [errorMessage, setErrorMessage] = useState({
@@ -21,38 +23,49 @@ const App = (props) => {
   });
   const PAGENUMBERS = 3;
 
+
+  const [loading, setLoading] = useState(false);
+
+  const lastMovieCard = useCallback( node => {
+    console.log(node)
+  }, [])
+
   const { moviesObject, genresObject } = props;
 
   const getBulkMoviesList = () => {
     let numberOfPages = 0;
     let moviesArray = [];
+    setLoading(true);
 
     fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre)
       .then((result) => {
         moviesArray = moviesArray.concat(result.results);
         props.getMyMoviesList(moviesArray);
-        numberOfPages = result.total_pages;
+        props.setTotalPages(result.total_pages)
+        setLoading(false)
 
-        if (numberOfPages > 1) {
-          for (let i = 2; i <= PAGENUMBERS; i += 1) {
-            if (i <= numberOfPages) {
-              fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre, i)
-                .then((result) => {
-                  props.getMyMoviesList(result.results);
-                }).catch(() => {
-                  setErrorMessage({ ...errorMessage, moviesListErrorMessage: "Sorry!, something's wrong" });
-                });
-            }
-          }
-        }
-      }).catch(() => {
-        setErrorMessage({ ...errorMessage, moviesListErrorMessage: 'Sorry!, something went wrong. This could be due to a number of reasons such as "Poor or No internet connection". Please try again later' });
+        // if (numberOfPages > 1) {
+        //   for (let i = 2; i <= PAGENUMBERS; i += 1) {
+        //     if (i <= numberOfPages) {
+        //       fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre, i)
+        //         .then((result) => {
+        //           props.getMyMoviesList(result.results);
+        //         }).catch(() => {
+        //           setErrorMessage({ ...errorMessage, moviesListErrorMessage: "Sorry!, something's wrong" });
+        //         });
+        //     }
+        //   }
+        // }
+      }).catch((e) => {
+        setErrorMessage({ ...errorMessage, moviesListErrorMessage: e.message ? e.message : 'Sorry!, something went wrong. This could be due to a number of reasons such as "Poor or No internet connection". Please try again later' });
+        setLoading(false);
       });
   };
 
   const resetMovieList = () => {
     props.removeMyMoviesList();
-    setErrorMessage({ ...errorMessage, moviesListErrorMessage: 'Loading ...' });
+    setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
+    setLoading(true);
   };
 
   const handleFetchingMovies = () => {
@@ -74,8 +87,10 @@ const App = (props) => {
     if (!genresObject.genres) {
       fetchGenreList(API_KEY).then((result) => {
         props.getMyGenresList(result);
+        props.setListNumberOfPages
       }).catch(() => {
         setErrorMessage({ ...errorMessage, genresListErrorMessage: 'Genre Load Failed!' });
+        setLoading(false)
       });
     }
 
@@ -103,13 +118,22 @@ const App = (props) => {
       </header>
 
       <div className={styling.movieList_div}>
-        {moviesObject.movies.length !== 0
-          ? moviesObject.movies.map((movie) => (
-            <div className={styling.movieCard_holder_div} key={movie.id}>
-              <MovieCard movie={movie} genresObject={genresObject} />
-            </div>
-          ))
-          : <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
+        {moviesObject.movies.length > 0
+          && moviesObject.movies.map((movie, index) => {
+            if(moviesObject.movies.length == index + 1) {
+              return (<div className={styling.movieCard_holder_div} ref={lastMovieCard} key={movie.id}>
+                <MovieCard movie={movie} genresObject={genresObject} />
+              </div>)
+            } else {
+              return (<div className={styling.movieCard_holder_div} key={movie.id}>
+                <MovieCard movie={movie} genresObject={genresObject} />
+              </div>)              
+            }
+          })}
+
+        {loading && <p className={styling.movie_error_par}>Loading ...</p>}
+
+        {errorMessage.moviesListErrorMessage && <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
       </div>
 
     </div>
@@ -125,6 +149,7 @@ App.defaultProps = {
   changeMyYear: () => {},
   changeMyGenre: () => {},
   removeMyMoviesList: () => {},
+  setTotalPages: () => {},
 };
 
 App.propTypes = {
@@ -135,6 +160,7 @@ App.propTypes = {
   changeMyYear: PropTypes.func,
   changeMyGenre: PropTypes.func,
   removeMyMoviesList: PropTypes.func,
+  setTotalPages: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -160,6 +186,12 @@ const mapDispatchToProps = (dispatch) => ({
   removeMyMoviesList: () => {
     dispatch(removeMoviesListAction());
   },
+  setTotalPages: (pagesTotal) => {
+    dispatch(setNumberOfPages(pagesTotal))
+  },
+  setMoviesPageNumber: (currentPageNumber) => {
+    dispatch(setPageNumber(currentPageNumber))
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
