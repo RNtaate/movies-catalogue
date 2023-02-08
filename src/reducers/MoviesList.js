@@ -14,6 +14,8 @@ const MoviesListReducer = (state = moviesListInitialState, action) => {
       return {...state, numberOfPages: action.payLoad}
     case 'SET_PAGE_NUMBER':
       return {...state, pageNumber: action.payLoad}
+    case 'UPDATE_PAGE_NUMBER_ARRAY': 
+      return {...state, pageNumberArray: action.payLoad}
     default:
       return state;
   }
