@@ -50,6 +50,20 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.load_more_btn {
+  margin: 0 auto;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  color: #fff;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 50px 0;
+}
+
 .movieList_div {
   background-color: #332;
   display: flex;
@@ -79,6 +93,7 @@
   text-align: center;
   line-height: 2em;
   letter-spacing: 0.1em;
+  padding: 50px 0;
 }
 
 .genre_error_par {

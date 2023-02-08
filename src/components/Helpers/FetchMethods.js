@@ -11,8 +11,10 @@ const fetchGenreList = async (apiKey) => {
 const fetchMoviesList = async (apiKey, year, genreList, page = 1) => {
   const url = getMovieListUrl(apiKey, year, genreList, page);
   const req = await fetch(url);
+  if (!req.ok) {
+    throw new Error('Something is corrupted, cannot fetch movies at this time.');
+  }
   const response = await req.json();
-
   return response;
 };
 

@@ -10,56 +10,51 @@ import { API_KEY } from '../../components/Helpers/HelperConstants';
 import {
   getGenresListAction, getMoviesListAction, changeYearAction, changeGenreAction,
   removeMoviesListAction,
+  setNumberOfPages,
+  setPageNumber,
+  updatePageNumberArray,
 } from '../../actions/index';
 import MovieCard from '../../components/MovieCard';
 
 const App = (props) => {
   const [errorMessage, setErrorMessage] = useState({
-    moviesListErrorMessage: 'No Filter Submitted. Click on the "Submit Filter" button to display your first selection of movies from the year "2021" and the "Action, Comedy" genres.',
+    moviesListErrorMessage: '',
 
     genresListErrorMessage: 'No Genres Fetched',
   });
-  const PAGENUMBERS = 3;
+  const MAXIMUMPAGENUMBERS = 3;
+
+  const [loading, setLoading] = useState(false);
 
   const { moviesObject, genresObject } = props;
 
   const getBulkMoviesList = () => {
-    let numberOfPages = 0;
     let moviesArray = [];
+    setLoading(true);
 
-    fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre)
+    fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre, moviesObject.pageNumber)
       .then((result) => {
         moviesArray = moviesArray.concat(result.results);
         props.getMyMoviesList(moviesArray);
-        numberOfPages = result.total_pages;
-
-        if (numberOfPages > 1) {
-          for (let i = 2; i <= PAGENUMBERS; i += 1) {
-            if (i <= numberOfPages) {
-              fetchMoviesList(API_KEY, moviesObject.year, moviesObject.genre, i)
-                .then((result) => {
-                  props.getMyMoviesList(result.results);
-                }).catch(() => {
-                  setErrorMessage({ ...errorMessage, moviesListErrorMessage: "Sorry!, something's wrong" });
-                });
-            }
-          }
-        }
-      }).catch(() => {
-        setErrorMessage({ ...errorMessage, moviesListErrorMessage: 'Sorry!, something went wrong. This could be due to a number of reasons such as "Poor or No internet connection". Please try again later' });
+        props.setTotalPages(result.total_pages);
+        props.updatePageNumberCollection([...moviesObject.pageNumberArray, result.page]);
+        setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
+        setLoading(false);
+      }).catch((e) => {
+        setErrorMessage({ ...errorMessage, moviesListErrorMessage: e.message ? e.message : 'Sorry!, something went wrong. This could be due to a number of reasons such as "Poor or No internet connection". Please try again later' });
+        setLoading(false);
       });
   };
 
   const resetMovieList = () => {
     props.removeMyMoviesList();
-    setErrorMessage({ ...errorMessage, moviesListErrorMessage: 'Loading ...' });
-  };
-
-  const handleFetchingMovies = () => {
-    resetMovieList();
-    setTimeout(() => {
+    setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
+    setLoading(true);
+    props.updatePageNumberCollection([]);
+    if (moviesObject.pageNumber === 1) {
       getBulkMoviesList();
-    }, 500);
+    }
+    props.setCurrentPageNumber(1);
   };
 
   const handleYearSelection = (yearValue) => {
@@ -76,42 +71,70 @@ const App = (props) => {
         props.getMyGenresList(result);
       }).catch(() => {
         setErrorMessage({ ...errorMessage, genresListErrorMessage: 'Genre Load Failed!' });
+        setLoading(false);
       });
     }
 
-    if (moviesObject.movies.length === 0) {
-      handleFetchingMovies();
+    if (!(moviesObject.pageNumberArray.includes(moviesObject.pageNumber))) {
+      getBulkMoviesList();
     }
-  }, []);
+  }, [moviesObject.pageNumber]);
+
+  // <------ Below this line are the returned components ------->
+
+  const createHeader = () => (
+    <header className={styling.header_div}>
+      <h1 data-testid="main-heading">
+        NORP
+        {' '}
+        <small>MOVIES</small>
+      </h1>
+      <div className={styling.selection_div}>
+        <YearSelect handleYearSelection={handleYearSelection} />
+        {genresObject.genres
+          ? <GenreSelect handleGenresSelection={handleGenresSelection} />
+          : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}
+        <button onClick={resetMovieList} className={styling.submit_button} type="button">GO</button>
+      </div>
+    </header>
+  );
 
   return (
 
     <div className={styling.app_container_div}>
-      <header className={styling.header_div}>
-        <h1 data-testid="main-heading">
-          NORP
-          {' '}
-          <small>MOVIES</small>
-        </h1>
-        <div className={styling.selection_div}>
-          <YearSelect handleYearSelection={handleYearSelection} />
-          {genresObject.genres
-            ? <GenreSelect handleGenresSelection={handleGenresSelection} />
-            : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}
-          <button onClick={handleFetchingMovies} className={styling.submit_button} type="button">Submit Filter</button>
-        </div>
-      </header>
+      {createHeader()}
 
       <div className={styling.movieList_div}>
-        {moviesObject.movies.length !== 0
-          ? moviesObject.movies.map((movie) => (
-            <div className={styling.movieCard_holder_div} key={movie.id}>
-              <MovieCard movie={movie} genresObject={genresObject} />
-            </div>
-          ))
-          : <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
+        {moviesObject.movies.length > 0
+          && moviesObject.movies.map((movie, index) => {
+            if (moviesObject.movies.length === index + 1) {
+              return (
+                <div className={styling.movieCard_holder_div} key={movie.id}>
+                  <MovieCard movie={movie} genresObject={genresObject} />
+                </div>
+              );
+            }
+            return (
+              <div className={styling.movieCard_holder_div} key={movie.id}>
+                <MovieCard movie={movie} genresObject={genresObject} />
+              </div>
+            );
+          })}
+
+        {errorMessage.moviesListErrorMessage
+          && (
+          <p className={styling.movie_error_par}>
+            {errorMessage.moviesListErrorMessage}
+          </p>
+          )}
       </div>
 
+      {loading && <p className={styling.movie_error_par}>Loading ...</p>}
+
+      {loading
+        || errorMessage.moviesListErrorMessage
+        || (moviesObject.pageNumber === MAXIMUMPAGENUMBERS) ? null
+        : <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
     </div>
 
   );
@@ -125,6 +148,9 @@ App.defaultProps = {
   changeMyYear: () => {},
   changeMyGenre: () => {},
   removeMyMoviesList: () => {},
+  setTotalPages: () => {},
+  setCurrentPageNumber: () => {},
+  updatePageNumberCollection: () => {},
 };
 
 App.propTypes = {
@@ -135,6 +161,9 @@ App.propTypes = {
   changeMyYear: PropTypes.func,
   changeMyGenre: PropTypes.func,
   removeMyMoviesList: PropTypes.func,
+  setTotalPages: PropTypes.func,
+  setCurrentPageNumber: PropTypes.func,
+  updatePageNumberCollection: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -159,6 +188,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   removeMyMoviesList: () => {
     dispatch(removeMoviesListAction());
+  },
+  setTotalPages: (pagesTotal) => {
+    dispatch(setNumberOfPages(pagesTotal));
+  },
+  setCurrentPageNumber: (currentPageNumber) => {
+    dispatch(setPageNumber(currentPageNumber));
+  },
+  updatePageNumberCollection: (numberArray) => {
+    dispatch(updatePageNumberArray(numberArray));
   },
 });
 
