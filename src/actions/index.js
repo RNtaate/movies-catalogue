@@ -25,17 +25,17 @@ const removeMoviesListAction = () => ({
 const setNumberOfPages = (number) => ({
   type: 'SET_NUMBER_OF_PAGES',
   payLoad: number,
-})
+});
 
 const setPageNumber = (pageNumber) => ({
-  type: "SET_PAGE_NUMBER",
-  payLoad: pageNumber
-})
+  type: 'SET_PAGE_NUMBER',
+  payLoad: pageNumber,
+});
 
 const updatePageNumberArray = (arr) => ({
-  type: "UPDATE_PAGE_NUMBER_ARRAY",
-  payLoad: arr
-})
+  type: 'UPDATE_PAGE_NUMBER_ARRAY',
+  payLoad: arr,
+});
 
 export {
   getGenresListAction,
@@ -45,5 +45,5 @@ export {
   removeMoviesListAction,
   setNumberOfPages,
   setPageNumber,
-  updatePageNumberArray
+  updatePageNumberArray,
 };

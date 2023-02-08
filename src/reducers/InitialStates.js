@@ -6,7 +6,7 @@ const moviesListInitialState = {
   genre: '28|35',
   numberOfPages: 0,
   pageNumber: 1,
-  pageNumberArray: []
+  pageNumberArray: [],
 };
 
 export { genresListInitialState, moviesListInitialState };

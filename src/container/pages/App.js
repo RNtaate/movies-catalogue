@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as styling from './App.module.css';
@@ -12,9 +12,9 @@ import {
   removeMoviesListAction,
   setNumberOfPages,
   setPageNumber,
-  updatePageNumberArray
+  updatePageNumberArray,
 } from '../../actions/index';
-import MovieCard from '../../components/MovieCard'; 
+import MovieCard from '../../components/MovieCard';
 
 const App = (props) => {
   const [errorMessage, setErrorMessage] = useState({
@@ -24,12 +24,7 @@ const App = (props) => {
   });
   const MAXIMUMPAGENUMBERS = 3;
 
-
   const [loading, setLoading] = useState(false);
-
-  const lastMovieCard = useCallback( node => {
-    console.log(node)
-  }, [])
 
   const { moviesObject, genresObject } = props;
 
@@ -41,11 +36,10 @@ const App = (props) => {
       .then((result) => {
         moviesArray = moviesArray.concat(result.results);
         props.getMyMoviesList(moviesArray);
-        props.setTotalPages(result.total_pages)
-        props.updatePageNumberCollection([...moviesObject.pageNumberArray, result.page])
+        props.setTotalPages(result.total_pages);
+        props.updatePageNumberCollection([...moviesObject.pageNumberArray, result.page]);
         setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
-        setLoading(false)
-
+        setLoading(false);
       }).catch((e) => {
         setErrorMessage({ ...errorMessage, moviesListErrorMessage: e.message ? e.message : 'Sorry!, something went wrong. This could be due to a number of reasons such as "Poor or No internet connection". Please try again later' });
         setLoading(false);
@@ -57,11 +51,11 @@ const App = (props) => {
     setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
     setLoading(true);
     props.updatePageNumberCollection([]);
-    if(moviesObject.pageNumber == 1){
-      console.log("I am running in the resetMovieList function")
-       getBulkMoviesList();
+    if (moviesObject.pageNumber == 1) {
+      console.log('I am running in the resetMovieList function');
+      getBulkMoviesList();
     }
-    props.setCurrentPageNumber(1)
+    props.setCurrentPageNumber(1);
   };
 
   const handleFetchingMovies = () => {
@@ -85,57 +79,55 @@ const App = (props) => {
         props.getMyGenresList(result);
       }).catch(() => {
         setErrorMessage({ ...errorMessage, genresListErrorMessage: 'Genre Load Failed!' });
-        setLoading(false)
+        setLoading(false);
       });
     }
 
-    if(!(moviesObject.pageNumberArray.includes(moviesObject.pageNumber))){
-      console.log("I am going to fetch some stuff in the useEffect")
+    if (!(moviesObject.pageNumberArray.includes(moviesObject.pageNumber))) {
+      console.log('I am going to fetch some stuff in the useEffect');
       getBulkMoviesList();
     }
-
   }, [moviesObject.pageNumber]);
-
 
   // <------ Below this line are the returned components ------->
 
-  const createHeader = () => {
-    return (
-      <header className={styling.header_div}>
-        <h1 data-testid="main-heading">
-          NORP
-          {' '}
-          <small>MOVIES</small>
-        </h1>
-        <div className={styling.selection_div}>
-          <YearSelect handleYearSelection={handleYearSelection} />
-          {genresObject.genres
-            ? <GenreSelect handleGenresSelection={handleGenresSelection} />
-            : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}
-          <button onClick={resetMovieList} className={styling.submit_button} type="button">Search</button>
-        </div>
-      </header>
-    )
-  }
-
+  const createHeader = () => (
+    <header className={styling.header_div}>
+      <h1 data-testid="main-heading">
+        NORP
+        {' '}
+        <small>MOVIES</small>
+      </h1>
+      <div className={styling.selection_div}>
+        <YearSelect handleYearSelection={handleYearSelection} />
+        {genresObject.genres
+          ? <GenreSelect handleGenresSelection={handleGenresSelection} />
+          : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}
+        <button onClick={resetMovieList} className={styling.submit_button} type="button">GO</button>
+      </div>
+    </header>
+  );
 
   return (
 
     <div className={styling.app_container_div}>
       {createHeader()}
-      
+
       <div className={styling.movieList_div}>
         {moviesObject.movies.length > 0
           && moviesObject.movies.map((movie, index) => {
-            if(moviesObject.movies.length == index + 1) {
-              return (<div className={styling.movieCard_holder_div} ref={lastMovieCard} key={movie.id}>
-                <MovieCard movie={movie} genresObject={genresObject} />
-              </div>)
-            } else {
-              return (<div className={styling.movieCard_holder_div} key={movie.id}>
-                <MovieCard movie={movie} genresObject={genresObject} />
-              </div>)              
+            if (moviesObject.movies.length == index + 1) {
+              return (
+                <div className={styling.movieCard_holder_div} key={movie.id}>
+                  <MovieCard movie={movie} genresObject={genresObject} />
+                </div>
+              );
             }
+            return (
+              <div className={styling.movieCard_holder_div} key={movie.id}>
+                <MovieCard movie={movie} genresObject={genresObject} />
+              </div>
+            );
           })}
 
         {errorMessage.moviesListErrorMessage && <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
@@ -143,8 +135,8 @@ const App = (props) => {
 
       {loading && <p className={styling.movie_error_par}>Loading ...</p>}
 
-      {loading || errorMessage.moviesListErrorMessage || (moviesObject.pageNumber == MAXIMUMPAGENUMBERS) ? null : 
-      <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
+      {loading || errorMessage.moviesListErrorMessage || (moviesObject.pageNumber == MAXIMUMPAGENUMBERS) ? null
+        : <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
     </div>
 
   );
@@ -160,7 +152,7 @@ App.defaultProps = {
   removeMyMoviesList: () => {},
   setTotalPages: () => {},
   setCurrentPageNumber: () => {},
-  updatePageNumberCollection: () => {}
+  updatePageNumberCollection: () => {},
 };
 
 App.propTypes = {
@@ -172,7 +164,7 @@ App.propTypes = {
   changeMyGenre: PropTypes.func,
   removeMyMoviesList: PropTypes.func,
   setTotalPages: PropTypes.func,
-  updatePageNumberCollection: PropTypes.func
+  updatePageNumberCollection: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -199,14 +191,14 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(removeMoviesListAction());
   },
   setTotalPages: (pagesTotal) => {
-    dispatch(setNumberOfPages(pagesTotal))
+    dispatch(setNumberOfPages(pagesTotal));
   },
   setCurrentPageNumber: (currentPageNumber) => {
-    dispatch(setPageNumber(currentPageNumber))
+    dispatch(setPageNumber(currentPageNumber));
   },
   updatePageNumberCollection: (numberArray) => {
-    dispatch(updatePageNumberArray(numberArray))
-  }
+    dispatch(updatePageNumberArray(numberArray));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
