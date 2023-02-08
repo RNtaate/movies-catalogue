@@ -18,11 +18,11 @@ import MovieCard from '../../components/MovieCard';
 
 const App = (props) => {
   const [errorMessage, setErrorMessage] = useState({
-    moviesListErrorMessage: 'No Filter Submitted. Click on the "Submit Filter" button to display your first selection of movies from the year "2021" and the "Action, Comedy" genres.',
+    moviesListErrorMessage: '',
 
     genresListErrorMessage: 'No Genres Fetched',
   });
-  const PAGENUMBERS = 3;
+  const MAXIMUMPAGENUMBERS = 3;
 
 
   const [loading, setLoading] = useState(false);
@@ -43,6 +43,7 @@ const App = (props) => {
         props.getMyMoviesList(moviesArray);
         props.setTotalPages(result.total_pages)
         props.updatePageNumberCollection([...moviesObject.pageNumberArray, result.page])
+        setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
         setLoading(false)
 
       }).catch((e) => {
@@ -109,14 +110,11 @@ const App = (props) => {
           {genresObject.genres
             ? <GenreSelect handleGenresSelection={handleGenresSelection} />
             : <p className={styling.genre_error_par}>{errorMessage.genresListErrorMessage}</p>}
-          <button onClick={resetMovieList} className={styling.submit_button} type="button">Submit Filter</button>
-
-          <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.submit_button} type="button">Page Up</button>
+          <button onClick={resetMovieList} className={styling.submit_button} type="button">Search</button>
         </div>
       </header>
 
       <div className={styling.movieList_div}>
-        {moviesObject.pageNumber && <p className={styling.movie_error_par}>{moviesObject.pageNumber}</p>}
         {moviesObject.movies.length > 0
           && moviesObject.movies.map((movie, index) => {
             if(moviesObject.movies.length == index + 1) {
@@ -130,12 +128,13 @@ const App = (props) => {
             }
           })}
 
-        
-
         {errorMessage.moviesListErrorMessage && <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
       </div>
+      
       {loading && <p className={styling.movie_error_par}>Loading ...</p>}
-      <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.submit_button} type="button">Page Up</button>
+
+      {loading || errorMessage.moviesListErrorMessage || (moviesObject.pageNumber == MAXIMUMPAGENUMBERS) ? null : 
+      <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
     </div>
 
   );
