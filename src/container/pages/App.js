@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as styling from './App.module.css';
@@ -51,18 +51,10 @@ const App = (props) => {
     setErrorMessage({ ...errorMessage, moviesListErrorMessage: '' });
     setLoading(true);
     props.updatePageNumberCollection([]);
-    if (moviesObject.pageNumber == 1) {
-      console.log('I am running in the resetMovieList function');
+    if (moviesObject.pageNumber === 1) {
       getBulkMoviesList();
     }
     props.setCurrentPageNumber(1);
-  };
-
-  const handleFetchingMovies = () => {
-    // resetMovieList();
-    setTimeout(() => {
-      getBulkMoviesList();
-    }, 100);
   };
 
   const handleYearSelection = (yearValue) => {
@@ -84,7 +76,6 @@ const App = (props) => {
     }
 
     if (!(moviesObject.pageNumberArray.includes(moviesObject.pageNumber))) {
-      console.log('I am going to fetch some stuff in the useEffect');
       getBulkMoviesList();
     }
   }, [moviesObject.pageNumber]);
@@ -116,7 +107,7 @@ const App = (props) => {
       <div className={styling.movieList_div}>
         {moviesObject.movies.length > 0
           && moviesObject.movies.map((movie, index) => {
-            if (moviesObject.movies.length == index + 1) {
+            if (moviesObject.movies.length === index + 1) {
               return (
                 <div className={styling.movieCard_holder_div} key={movie.id}>
                   <MovieCard movie={movie} genresObject={genresObject} />
@@ -130,12 +121,19 @@ const App = (props) => {
             );
           })}
 
-        {errorMessage.moviesListErrorMessage && <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
+        {errorMessage.moviesListErrorMessage
+          && (
+          <p className={styling.movie_error_par}>
+            {errorMessage.moviesListErrorMessage}
+          </p>
+          )}
       </div>
 
       {loading && <p className={styling.movie_error_par}>Loading ...</p>}
 
-      {loading || errorMessage.moviesListErrorMessage || (moviesObject.pageNumber == MAXIMUMPAGENUMBERS) ? null
+      {loading
+        || errorMessage.moviesListErrorMessage
+        || (moviesObject.pageNumber === MAXIMUMPAGENUMBERS) ? null
         : <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
     </div>
 
@@ -164,6 +162,7 @@ App.propTypes = {
   changeMyGenre: PropTypes.func,
   removeMyMoviesList: PropTypes.func,
   setTotalPages: PropTypes.func,
+  setCurrentPageNumber: PropTypes.func,
   updatePageNumberCollection: PropTypes.func,
 };
 
