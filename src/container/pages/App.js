@@ -96,9 +96,11 @@ const App = (props) => {
 
   }, [moviesObject.pageNumber]);
 
-  return (
 
-    <div className={styling.app_container_div}>
+  // <------ Below this line are the returned components ------->
+
+  const createHeader = () => {
+    return (
       <header className={styling.header_div}>
         <h1 data-testid="main-heading">
           NORP
@@ -113,7 +115,15 @@ const App = (props) => {
           <button onClick={resetMovieList} className={styling.submit_button} type="button">Search</button>
         </div>
       </header>
+    )
+  }
 
+
+  return (
+
+    <div className={styling.app_container_div}>
+      {createHeader()}
+      
       <div className={styling.movieList_div}>
         {moviesObject.movies.length > 0
           && moviesObject.movies.map((movie, index) => {
@@ -130,7 +140,7 @@ const App = (props) => {
 
         {errorMessage.moviesListErrorMessage && <p className={styling.movie_error_par}>{errorMessage.moviesListErrorMessage}</p>}
       </div>
-      
+
       {loading && <p className={styling.movie_error_par}>Loading ...</p>}
 
       {loading || errorMessage.moviesListErrorMessage || (moviesObject.pageNumber == MAXIMUMPAGENUMBERS) ? null : 
