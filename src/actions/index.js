@@ -32,6 +32,11 @@ const setPageNumber = (pageNumber) => ({
   payLoad: pageNumber
 })
 
+const updatePageNumberArray = (arr) => ({
+  type: "UPDATE_PAGE_NUMBER_ARRAY",
+  payLoad: arr
+})
+
 export {
   getGenresListAction,
   getMoviesListAction,
@@ -40,4 +45,5 @@ export {
   removeMoviesListAction,
   setNumberOfPages,
   setPageNumber,
+  updatePageNumberArray
 };
