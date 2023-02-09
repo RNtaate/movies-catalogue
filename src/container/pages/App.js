@@ -106,13 +106,11 @@ const App = (props) => {
 
       <div className={styling.movieList_div}>
         {moviesObject.movies.length > 0
-          && moviesObject.movies.map((movie) => {
-            return (
-              <div className={styling.movieCard_holder_div} key={movie.id}>
-                <MovieCard movie={movie} genresObject={genresObject} />
-              </div>
-            );
-          })}
+          && moviesObject.movies.map((movie) => (
+            <div className={styling.movieCard_holder_div} key={movie.id}>
+              <MovieCard movie={movie} genresObject={genresObject} />
+            </div>
+          ))}
 
         {errorMessage.moviesListErrorMessage
           && (
@@ -126,7 +124,7 @@ const App = (props) => {
 
       {loading
         || errorMessage.moviesListErrorMessage
-        || (moviesObject.pageNumber === MAXIMUMPAGENUMBERS 
+        || (moviesObject.pageNumber === MAXIMUMPAGENUMBERS
             || moviesObject.pageNumber === moviesObject.numberOfPages) ? null
         : <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
     </div>
