@@ -1,11 +1,13 @@
 .movieCard_container_div {
   text-decoration: none;
-  width: 240px;
-  height: 450px;
-  max-height: 450px;
+  width: 200px;
+  height: 350px;
+  max-height: 350px;
   display: flex;
   flex-direction: column;
   box-shadow: 10px 10px 15px -5px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .movieCard_poster_div {
@@ -43,11 +45,11 @@
   -webkit-box-orient: vertical;
   font-weight: 300;
   color: #eee;
-  font-size: 1.3em;
+  font-size: 1em;
 }
 
 .rating_genres_div {
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   justify-content: space-between;
   align-items: center;
