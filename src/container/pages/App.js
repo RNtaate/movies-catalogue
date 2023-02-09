@@ -107,13 +107,6 @@ const App = (props) => {
       <div className={styling.movieList_div}>
         {moviesObject.movies.length > 0
           && moviesObject.movies.map((movie, index) => {
-            if (moviesObject.movies.length === index + 1) {
-              return (
-                <div className={styling.movieCard_holder_div} key={movie.id}>
-                  <MovieCard movie={movie} genresObject={genresObject} />
-                </div>
-              );
-            }
             return (
               <div className={styling.movieCard_holder_div} key={movie.id}>
                 <MovieCard movie={movie} genresObject={genresObject} />
