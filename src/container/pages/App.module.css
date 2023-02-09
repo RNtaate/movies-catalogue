@@ -55,7 +55,7 @@
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 5px;
-  color: #fff;
+  color: #ccc;
   outline: none;
   background-color: transparent;
   border: none;
@@ -72,11 +72,12 @@
   max-width: 1225px;
   padding-top: 40px;
   margin: 0 auto;
+  justify-content: center;
+  column-gap: 50px;
 }
 
 .movieCard_holder_div {
   display: flex;
-  width: 25%;
   justify-content: center;
   margin-bottom: 50px;
 }

@@ -22,7 +22,7 @@ const App = (props) => {
 
     genresListErrorMessage: 'No Genres Fetched',
   });
-  const MAXIMUMPAGENUMBERS = 3;
+  const MAXIMUMPAGENUMBERS = 5;
 
   const [loading, setLoading] = useState(false);
 
@@ -106,20 +106,11 @@ const App = (props) => {
 
       <div className={styling.movieList_div}>
         {moviesObject.movies.length > 0
-          && moviesObject.movies.map((movie, index) => {
-            if (moviesObject.movies.length === index + 1) {
-              return (
-                <div className={styling.movieCard_holder_div} key={movie.id}>
-                  <MovieCard movie={movie} genresObject={genresObject} />
-                </div>
-              );
-            }
-            return (
-              <div className={styling.movieCard_holder_div} key={movie.id}>
-                <MovieCard movie={movie} genresObject={genresObject} />
-              </div>
-            );
-          })}
+          && moviesObject.movies.map((movie) => (
+            <div className={styling.movieCard_holder_div} key={movie.id}>
+              <MovieCard movie={movie} genresObject={genresObject} />
+            </div>
+          ))}
 
         {errorMessage.moviesListErrorMessage
           && (
@@ -133,7 +124,8 @@ const App = (props) => {
 
       {loading
         || errorMessage.moviesListErrorMessage
-        || (moviesObject.pageNumber === MAXIMUMPAGENUMBERS) ? null
+        || (moviesObject.pageNumber === MAXIMUMPAGENUMBERS
+            || moviesObject.pageNumber === moviesObject.numberOfPages) ? null
         : <button onClick={() => props.setCurrentPageNumber(moviesObject.pageNumber + 1)} className={styling.load_more_btn} type="button">Load More ...</button> }
     </div>
 
