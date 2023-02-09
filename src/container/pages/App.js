@@ -22,7 +22,7 @@ const App = (props) => {
 
     genresListErrorMessage: 'No Genres Fetched',
   });
-  const MAXIMUMPAGENUMBERS = 3;
+  const MAXIMUMPAGENUMBERS = 5;
 
   const [loading, setLoading] = useState(false);
 
