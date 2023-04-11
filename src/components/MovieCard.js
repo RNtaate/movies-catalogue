@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 import convertToGenreNames from './Helpers/HelperMethods';
 import * as styles from './MovieCard.module.css';
 import spinner from '../assets/image_loading5.gif';
 import noPoster from '../assets/no_poster1.jpeg';
+
+AOS.init();
 
 const MovieCard = (props) => {
   const { movie, genresObject } = props;
@@ -16,7 +20,7 @@ const MovieCard = (props) => {
 
   return (
 
-    <div>
+    <div data-aos="fade-down" data-aos-offset="100" data-aos-easing="ease-in-sine" data-aos-duration="600">
       <Link to={`/movie/${movie.id}`} className={styles.movieCard_container_div}>
         <div className={styles.movieCard_poster_div} style={{ backgroundImage: `url("${posterPath}"), url("${spinner}")` }} />
 
