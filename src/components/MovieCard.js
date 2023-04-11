@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AOS from 'aos';
-import 'aos/dist/aos.css'
+import 'aos/dist/aos.css';
 
 import convertToGenreNames from './Helpers/HelperMethods';
 import * as styles from './MovieCard.module.css';
